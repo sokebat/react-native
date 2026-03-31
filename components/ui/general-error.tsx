@@ -1,12 +1,11 @@
 import { router } from "expo-router";
 import React from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 
-import { AlertCircleIcon, HomeIcon } from "../../libs/icons";
+import { AlertCircle, Home } from "lucide-react-native";
 import { Button } from "./button";
 import { SafeAreaView } from "./safe-area-view";
 import { ScrollView } from "./scroll-view";
-import { Text } from "./text";
 
 interface GeneralErrorProps {
   title?: string;
@@ -18,7 +17,7 @@ interface GeneralErrorProps {
 
 export function GeneralError({
   title = "Something went wrong",
-  message = "We're having trouble loading this content. Please try again.",
+  message = "We&apos;re having trouble loading this content. Please try again.",
   showHomeButton = true,
   onRetry,
   retryText = "Try Again",
@@ -29,22 +28,27 @@ export function GeneralError({
 
   return (
     <SafeAreaView className="flex-1 bg-background">
-      <ScrollView contentContainerClassName="flex-1 p-6" showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerClassName="flex-1 p-6"
+        showsVerticalScrollIndicator={false}
+      >
         <View className="flex-1 items-center justify-center">
-          <AlertCircleIcon className="mb-6 h-20 w-20 text-muted-foreground" />
+          <AlertCircle className="mb-6 h-20 w-20 text-muted-foreground" />
 
-          <Text variant="h2" className="mb-4 text-center">
+          <Text className="mb-4 text-center text-3xl font-semibold text-foreground">
             {title}
           </Text>
 
-          <Text variant="p" className="mb-8 max-w-xs text-center text-muted-foreground">
+          <Text className="mb-8 max-w-xs text-center text-base leading-6 text-muted-foreground">
             {message}
           </Text>
 
           <View className="w-full max-w-xs gap-3">
             {onRetry && (
               <Button onPress={onRetry} size="lg" className="w-full">
-                <Text>{retryText}</Text>
+                <Text className="text-base font-medium text-primary-foreground">
+                  {retryText}
+                </Text>
               </Button>
             )}
 
@@ -55,8 +59,10 @@ export function GeneralError({
                 size="lg"
                 className="w-full"
               >
-                <HomeIcon className="mr-2 h-4 w-4" />
-                <Text>Go to Home</Text>
+                <Home className={onRetry ? "mr-2 h-4 w-4 text-foreground" : "mr-2 h-4 w-4 text-primary-foreground"} />
+                <Text className={onRetry ? "text-base font-medium text-foreground" : "text-base font-medium text-primary-foreground"}>
+                  Go to Home
+                </Text>
               </Button>
             )}
           </View>
@@ -65,4 +71,3 @@ export function GeneralError({
     </SafeAreaView>
   );
 }
-

@@ -1,22 +1,13 @@
+import { cn } from "@/lib/cn";
 import * as React from "react";
 import { Pressable, type PressableProps } from "react-native";
-import { cn } from "../../libs/cn";
-import { TextClassContext } from "./text-context";
 
 interface LabelProps extends PressableProps {
   textClass?: string;
 }
 
-const Label = React.forwardRef<
-  React.ElementRef<typeof Pressable>,
-  LabelProps
->(({ className, textClass, ...props }, ref) => (
-  <TextClassContext.Provider
-    value={cn(
-      "native:text-base text-sm font-medium text-foreground leading-none web:peer-disabled:cursor-not-allowed web:peer-disabled:opacity-70",
-      textClass
-    )}
-  >
+const Label = React.forwardRef<React.ElementRef<typeof Pressable>, LabelProps>(
+  ({ className, ...props }, ref) => (
     <Pressable
       ref={ref}
       className={cn("disabled:cursor-not-allowed", className)}
@@ -24,9 +15,8 @@ const Label = React.forwardRef<
       accessibilityRole="text"
       {...props}
     />
-  </TextClassContext.Provider>
-));
+  ),
+);
 Label.displayName = "Label";
 
 export { Label };
-

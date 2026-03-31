@@ -1,49 +1,19 @@
+import { cn } from "@/lib/cn";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { Platform, Pressable, type PressableProps } from "react-native";
-import { cn } from "../../libs/cn";
-import { TextClassContext } from "./text-context";
-
-/**
- * Button Component
- * 
- * A versatile button component with multiple variants and sizes.
- * Automatically adapts to iOS (TouchableOpacity behavior) and Android (Ripple effect).
- * 
- * @example
- * ```tsx
- * // Default button
- * <Button onPress={handlePress}>
- *   <Text>Click me</Text>
- * </Button>
- * 
- * // With variant
- * <Button variant="destructive" size="lg">
- *   <Text>Delete</Text>
- * </Button>
- * 
- * // With icon
- * <Button variant="outline" size="icon">
- *   <SettingsIcon className="h-5 w-5" />
- * </Button>
- * ```
- */
 
 const buttonVariants = cva(
   "web:ring-offset-background web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2 group flex items-center justify-center rounded-md",
   {
     variants: {
       variant: {
-        default:
-          "web:hover:opacity-90 bg-primary active:opacity-90",
-        destructive:
-          "web:hover:opacity-90 bg-destructive active:opacity-90",
+        default: "web:hover:opacity-90 bg-primary active:opacity-90",
+        destructive: "web:hover:opacity-90 bg-destructive active:opacity-90",
         outline:
           "web:hover:bg-accent web:hover:text-accent-foreground border border-input bg-background",
-        secondary:
-          "web:hover:opacity-80 bg-secondary active:opacity-80",
-        ghost:
-          "web:hover:bg-accent web:hover:text-accent-foreground",
+        secondary: "web:hover:opacity-80 bg-secondary active:opacity-80",
+        ghost: "web:hover:bg-accent web:hover:text-accent-foreground",
         link: "web:underline-offset-4 web:hover:underline web:focus:underline",
       },
       size: {
@@ -57,7 +27,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 const buttonTextVariants = cva("web:transition-colors text-sm font-medium", {
@@ -84,20 +54,21 @@ const buttonTextVariants = cva("web:transition-colors text-sm font-medium", {
 });
 
 interface ButtonProps
-  extends PressableProps,
-    VariantProps<typeof buttonVariants> {
+  extends PressableProps, VariantProps<typeof buttonVariants> {
   textClass?: string;
 }
 
 const Button = React.forwardRef<
   React.ElementRef<typeof Pressable>,
   ButtonProps
->(({ className, textClass, variant, size, ...props }, ref) => {
-  // Platform-specific feedback
+>(({ className, variant, size, ...props }, ref) => {
   const androidRipple = Platform.select({
     android: {
       android_ripple: {
-        color: variant === "destructive" ? "rgba(239, 68, 68, 0.3)" : "rgba(99, 102, 241, 0.3)",
+        color:
+          variant === "destructive"
+            ? "rgba(239, 68, 68, 0.3)"
+            : "rgba(99, 102, 241, 0.3)",
         borderless: false,
       },
     },
@@ -105,30 +76,22 @@ const Button = React.forwardRef<
   });
 
   return (
-    <TextClassContext.Provider
-      value={cn(
-        buttonTextVariants({ variant, size }),
-        textClass
+    <Pressable
+      className={cn(
+        props.disabled && "opacity-50 web:pointer-events-none",
+        buttonVariants({ variant, size, className }),
       )}
-    >
-      <Pressable
-        className={cn(
-          props.disabled && "opacity-50 web:pointer-events-none",
-          buttonVariants({ variant, size, className })
-        )}
-        ref={ref}
-        role="button"
-        {...androidRipple}
-        style={({ pressed }) => [
-          Platform.OS === "ios" && pressed && { opacity: 0.7 },
-        ]}
-        {...props}
-      />
-    </TextClassContext.Provider>
+      ref={ref}
+      role="button"
+      {...androidRipple}
+      style={({ pressed }) => [
+        Platform.OS === "ios" && pressed && { opacity: 0.7 },
+      ]}
+      {...props}
+    />
   );
 });
 Button.displayName = "Button";
 
 export { Button, buttonTextVariants, buttonVariants };
 export type { ButtonProps };
-

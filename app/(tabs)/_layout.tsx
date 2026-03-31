@@ -2,7 +2,8 @@ import { Tabs } from "expo-router";
 import React from "react";
 import { Platform } from "react-native";
 
-import { HapticTab, IconSymbol, TabBarBackground } from "@/components/ui";
+import { House, Menu, TriangleAlert } from "lucide-react-native";
+
 import { useColorScheme } from "@/hooks/useColorScheme";
 
 export default function TabLayout() {
@@ -14,8 +15,6 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: activeTintColor,
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
             position: "absolute",
@@ -28,9 +27,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={22} name="house.fill" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <House size={22} color={color} />,
         }}
       />
 
@@ -38,9 +35,7 @@ export default function TabLayout() {
         name="menu-demo"
         options={{
           title: "Menu",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={22} name="menucard" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Menu size={22} color={color} />,
         }}
       />
 
@@ -48,9 +43,7 @@ export default function TabLayout() {
         name="error-demo"
         options={{
           title: "Errors",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={22} name="exclamationmark.triangle.fill" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <TriangleAlert size={22} color={color} />,
         }}
       />
     </Tabs>

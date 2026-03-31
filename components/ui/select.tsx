@@ -1,11 +1,10 @@
+import { cn } from "@/lib/cn";
+import { Check, ChevronDown } from "lucide-react-native";
 import * as React from "react";
-import { Modal } from "react-native";
+import { Modal, Text } from "react-native";
 
-import { cn } from "../../libs/cn";
-import { CheckIcon, ChevronDownIcon } from "../../libs/icons";
 import { Pressable } from "./pressable";
 import { ScrollView } from "./scroll-view";
-import { Text } from "./text";
 import { View } from "./view";
 
 export interface SelectOption {
@@ -31,7 +30,11 @@ export function Select({
   className,
 }: SelectProps) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [dropdownPosition, setDropdownPosition] = React.useState({ top: 0, left: 0, width: 0 });
+  const [dropdownPosition, setDropdownPosition] = React.useState({
+    top: 0,
+    left: 0,
+    width: 0,
+  });
   const triggerRef = React.useRef<React.ElementRef<typeof View>>(null);
 
   const close = React.useCallback(() => {
@@ -58,7 +61,7 @@ export function Select({
       onValueChange?.(option);
       close();
     },
-    [close, onValueChange]
+    [close, onValueChange],
   );
 
   return (
@@ -68,18 +71,29 @@ export function Select({
         onPress={open}
         className={cn(
           "flex-row items-center justify-between rounded-md border border-input bg-background px-2 py-1",
-          disabled && "opacity-50"
+          disabled && "opacity-50",
         )}
       >
-        <Text variant="small" className={cn(!value && "text-muted-foreground", "mr-1")}>
+        <Text
+          className={cn("mr-1 text-sm text-foreground", !value && "text-muted-foreground")}
+        >
           {value?.label || placeholder}
         </Text>
-        <ChevronDownIcon className="h-3 w-3 opacity-50" />
+        <ChevronDown className="h-3 w-3 opacity-50" />
       </Pressable>
 
       {isOpen && (
-        <Modal transparent visible={isOpen} onRequestClose={close} animationType="fade">
-          <Pressable className="flex-1" style={{ backgroundColor: "transparent" }} onPress={close}>
+        <Modal
+          transparent
+          visible={isOpen}
+          onRequestClose={close}
+          animationType="fade"
+        >
+          <Pressable
+            className="flex-1"
+            style={{ backgroundColor: "transparent" }}
+            onPress={close}
+          >
             <View
               className="absolute overflow-hidden rounded-md border border-border bg-popover shadow-lg"
               style={{
@@ -97,9 +111,11 @@ export function Select({
                     className="flex-row items-center px-2 py-1.5 active:bg-accent"
                   >
                     <View className="mr-1 w-4">
-                      {value?.value === option.value && <CheckIcon className="h-3 w-3" />}
+                      {value?.value === option.value && (
+                        <Check className="h-3 w-3" />
+                      )}
                     </View>
-                    <Text variant="small">{option.label}</Text>
+                    <Text className="text-sm text-foreground">{option.label}</Text>
                   </Pressable>
                 ))}
               </ScrollView>
@@ -111,7 +127,13 @@ export function Select({
   );
 }
 
-export const SelectTrigger = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+export const SelectTrigger = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   return <View className={className}>{children}</View>;
 };
 
@@ -123,6 +145,12 @@ export const SelectValue = ({ placeholder }: { placeholder?: string }) => {
   return null;
 };
 
-export const SelectItem = ({ children }: { value: string; label: string; children: React.ReactNode }) => {
+export const SelectItem = ({
+  children,
+}: {
+  value: string;
+  label: string;
+  children: React.ReactNode;
+}) => {
   return <>{children}</>;
 };

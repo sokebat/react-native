@@ -1,12 +1,15 @@
+import { cn } from "@/lib/cn";
 import * as React from "react";
 import {
   Platform,
   KeyboardAvoidingView as RNKeyboardAvoidingView,
-  type KeyboardAvoidingViewProps as RNKeyboardAvoidingViewProps
+  type KeyboardAvoidingViewProps as RNKeyboardAvoidingViewProps,
 } from "react-native";
-import { cn } from "../../libs/cn";
 
-interface KeyboardAvoidingViewProps extends Omit<RNKeyboardAvoidingViewProps, "behavior"> {
+interface KeyboardAvoidingViewProps extends Omit<
+  RNKeyboardAvoidingViewProps,
+  "behavior"
+> {
   behavior?: RNKeyboardAvoidingViewProps["behavior"];
 }
 
@@ -15,11 +18,13 @@ const KeyboardAvoidingView = React.forwardRef<
   KeyboardAvoidingViewProps
 >(({ className, behavior, ...props }, ref) => {
   // Platform-specific behavior
-  const defaultBehavior = behavior || Platform.select({
-    ios: "padding",
-    android: "height",
-    default: "padding",
-  });
+  const defaultBehavior =
+    behavior ||
+    Platform.select({
+      ios: "padding",
+      android: "height",
+      default: "padding",
+    });
 
   return (
     <RNKeyboardAvoidingView

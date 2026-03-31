@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import {
   Button,
   Card,
@@ -11,7 +11,6 @@ import {
   NetworkError,
   SafeAreaView,
   ScrollView,
-  Text,
 } from "@/components/ui";
 import { useNetworkConnection } from "@/hooks/useNetworkConnection";
 
@@ -30,7 +29,7 @@ export default function ErrorDemo() {
     return (
       <NetworkError
         onRetry={() => setShowNetworkError(false)}
-        message="This is a demo of the network error screen. In a real app, this would show when there's no internet connection."
+        message="This is a demo of the network error screen. In a real app, this would show when there&apos;s no internet connection."
       />
     );
   }
@@ -49,26 +48,26 @@ export default function ErrorDemo() {
   return (
     <SafeAreaView edges={["top"]} className="flex-1">
       <ScrollView className="flex-1" contentContainerClassName="p-4">
-        <Text variant="h1" className="mb-4">
+        <Text className="mb-4 text-4xl font-bold text-foreground">
           Error Handling Demo
         </Text>
 
         <Card className="mb-4">
           <CardHeader>
             <CardTitle>
-              <Text variant="h3">Network Status</Text>
+              <Text className="text-2xl font-semibold text-foreground">Network Status</Text>
             </CardTitle>
             <CardDescription>
-              <Text>Monitor your connection status</Text>
+              <Text className="text-sm text-muted-foreground">Monitor your connection status</Text>
             </CardDescription>
           </CardHeader>
           <CardContent>
             <View className="gap-3">
               <View className="flex-row items-center justify-between">
-                <Text>Connection Status:</Text>
+                <Text className="text-base text-foreground">Connection Status:</Text>
                 <View className="flex-row items-center gap-2">
                   <View
-                    className={`w-3 h-3 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"}`}
+                    className={`h-3 w-3 rounded-full ${isConnected ? "bg-green-500" : "bg-red-500"}`}
                   />
                   <Text className={isConnected ? "text-green-600" : "text-red-600"}>
                     {isConnected ? "Connected" : "Disconnected"}
@@ -76,10 +75,10 @@ export default function ErrorDemo() {
                 </View>
               </View>
               <View className="flex-row items-center justify-between">
-                <Text>Internet Access:</Text>
+                <Text className="text-base text-foreground">Internet Access:</Text>
                 <View className="flex-row items-center gap-2">
                   <View
-                    className={`w-3 h-3 rounded-full ${isInternetReachable ? "bg-green-500" : "bg-orange-500"}`}
+                    className={`h-3 w-3 rounded-full ${isInternetReachable ? "bg-green-500" : "bg-orange-500"}`}
                   />
                   <Text
                     className={
@@ -92,7 +91,7 @@ export default function ErrorDemo() {
               </View>
               {type && (
                 <View className="flex-row items-center justify-between">
-                  <Text>Network Type:</Text>
+                  <Text className="text-base text-foreground">Network Type:</Text>
                   <Text className="text-muted-foreground">{type}</Text>
                 </View>
               )}
@@ -103,28 +102,28 @@ export default function ErrorDemo() {
                 variant="outline"
                 size="sm"
               >
-                <Text>Refresh Status</Text>
+                <Text className="text-sm font-medium text-foreground">Refresh Status</Text>
               </Button>
             </View>
           </CardContent>
         </Card>
 
-        <Text variant="h2" className="mb-4">
+        <Text className="mb-4 text-3xl font-semibold text-foreground">
           Error Screens
         </Text>
 
         <Card className="mb-4">
           <CardHeader>
             <CardTitle>
-              <Text variant="h3">Network Error Demo</Text>
+              <Text className="text-2xl font-semibold text-foreground">Network Error Demo</Text>
             </CardTitle>
             <CardDescription>
-              <Text>Shows when there&apos;s no internet connection</Text>
+              <Text className="text-sm text-muted-foreground">Shows when there&apos;s no internet connection</Text>
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Button onPress={() => setShowNetworkError(true)}>
-              <Text>Show Network Error</Text>
+              <Text className="text-base font-medium text-primary-foreground">Show Network Error</Text>
             </Button>
           </CardContent>
         </Card>
@@ -132,15 +131,15 @@ export default function ErrorDemo() {
         <Card className="mb-4">
           <CardHeader>
             <CardTitle>
-              <Text variant="h3">General Error Demo</Text>
+              <Text className="text-2xl font-semibold text-foreground">General Error Demo</Text>
             </CardTitle>
             <CardDescription>
-              <Text>Shows for generic application errors</Text>
+              <Text className="text-sm text-muted-foreground">Shows for generic application errors</Text>
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Button onPress={() => setShowGeneralError(true)} variant="secondary">
-              <Text>Show General Error</Text>
+              <Text className="text-base font-medium text-secondary-foreground">Show General Error</Text>
             </Button>
           </CardContent>
         </Card>
@@ -148,40 +147,38 @@ export default function ErrorDemo() {
         <Card className="mb-4">
           <CardHeader>
             <CardTitle>
-              <Text variant="h3">Error Boundary Demo</Text>
+              <Text className="text-2xl font-semibold text-foreground">Error Boundary Demo</Text>
             </CardTitle>
             <CardDescription>
-              <Text>Catches JavaScript errors in component tree</Text>
+              <Text className="text-sm text-muted-foreground">Catches JavaScript errors in component tree</Text>
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Text variant="small" className="mb-4 text-destructive">
+            <Text className="mb-4 text-sm text-destructive">
               This will crash the screen and show the error boundary
             </Text>
             <Button onPress={() => setThrowError(true)} variant="destructive">
-              <Text>Trigger Error Boundary</Text>
+              <Text className="text-base font-medium text-destructive-foreground">Trigger Error Boundary</Text>
             </Button>
           </CardContent>
         </Card>
 
-        <Text variant="h2" className="mb-4">
+        <Text className="mb-4 text-3xl font-semibold text-foreground">
           Usage Examples
         </Text>
 
         <Card>
           <CardHeader>
             <CardTitle>
-              <Text variant="h3">Implementation Guide</Text>
+              <Text className="text-2xl font-semibold text-foreground">Implementation Guide</Text>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <Text variant="small" className="mb-3">
-              <Text className="font-semibold">
-                1. Error Boundary (Already integrated in root):
-              </Text>
+            <Text className="mb-3 text-sm text-foreground">
+              1. Error Boundary (Already integrated in root):
             </Text>
             <View className="mb-4 rounded-md bg-muted p-3">
-              <Text variant="code" className="text-xs">
+              <Text className="text-xs font-mono text-foreground">
                 {`// Automatically catches all errors
 // Already wrapped in app/_layout.tsx
 <ErrorBoundary>
@@ -190,11 +187,11 @@ export default function ErrorDemo() {
               </Text>
             </View>
 
-            <Text variant="small" className="mb-3">
-              <Text className="font-semibold">2. Network Error Handling:</Text>
+            <Text className="mb-3 text-sm text-foreground">
+              2. Network Error Handling:
             </Text>
             <View className="mb-4 rounded-md bg-muted p-3">
-              <Text variant="code" className="text-xs">
+              <Text className="text-xs font-mono text-foreground">
                 {`import { NetworkError } from '@/components/ui';
 import { useIsOnline } from '@/hooks/useNetworkConnection';
 
@@ -210,11 +207,11 @@ function MyScreen() {
               </Text>
             </View>
 
-            <Text variant="small" className="mb-3">
-              <Text className="font-semibold">3. Custom Error States:</Text>
+            <Text className="mb-3 text-sm text-foreground">
+              3. Custom Error States:
             </Text>
             <View className="rounded-md bg-muted p-3">
-              <Text variant="code" className="text-xs">
+              <Text className="text-xs font-mono text-foreground">
                 {`import { GeneralError } from '@/components/ui';
 
 if (error) {
@@ -234,5 +231,3 @@ if (error) {
     </SafeAreaView>
   );
 }
-
-

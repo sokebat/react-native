@@ -1,11 +1,11 @@
+import { cn } from "@/lib/cn";
 import * as React from "react";
 import {
   Platform,
   ScrollView as RNScrollView,
   type ScrollViewProps as RNScrollViewProps,
-  RefreshControl
+  RefreshControl,
 } from "react-native";
-import { cn } from "../../libs/cn";
 
 interface ScrollViewProps extends RNScrollViewProps {
   refreshing?: boolean;
@@ -15,42 +15,47 @@ interface ScrollViewProps extends RNScrollViewProps {
 const ScrollView = React.forwardRef<
   React.ElementRef<typeof RNScrollView>,
   ScrollViewProps
->(({ className, contentContainerClassName, refreshing, onRefresh, ...props }, ref) => {
-  // Platform-specific defaults
-  const platformDefaults = Platform.select({
-    ios: {
-      bounces: true,
-      showsVerticalScrollIndicator: false,
-      overScrollMode: "always" as const,
-    },
-    android: {
-      bounces: false,
-      showsVerticalScrollIndicator: true,
-      overScrollMode: "auto" as const,
-    },
-    default: {},
-  });
+>(
+  (
+    { className, contentContainerClassName, refreshing, onRefresh, ...props },
+    ref,
+  ) => {
+    // Platform-specific defaults
+    const platformDefaults = Platform.select({
+      ios: {
+        bounces: true,
+        showsVerticalScrollIndicator: false,
+        overScrollMode: "always" as const,
+      },
+      android: {
+        bounces: false,
+        showsVerticalScrollIndicator: true,
+        overScrollMode: "auto" as const,
+      },
+      default: {},
+    });
 
-  return (
-    <RNScrollView
-      ref={ref}
-      className={cn("flex-1", className)}
-      contentContainerClassName={cn("flex-grow", contentContainerClassName)}
-      refreshControl={
-        onRefresh ? (
-          <RefreshControl
-            refreshing={refreshing || false}
-            onRefresh={onRefresh}
-            tintColor="#6366f1"
-            colors={["#6366f1"]} // Android
-          />
-        ) : undefined
-      }
-      {...platformDefaults}
-      {...props}
-    />
-  );
-});
+    return (
+      <RNScrollView
+        ref={ref}
+        className={cn("flex-1", className)}
+        contentContainerClassName={cn("flex-grow", contentContainerClassName)}
+        refreshControl={
+          onRefresh ? (
+            <RefreshControl
+              refreshing={refreshing || false}
+              onRefresh={onRefresh}
+              tintColor="#6366f1"
+              colors={["#6366f1"]} // Android
+            />
+          ) : undefined
+        }
+        {...platformDefaults}
+        {...props}
+      />
+    );
+  },
+);
 ScrollView.displayName = "ScrollView";
 
 export { ScrollView };

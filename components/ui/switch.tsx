@@ -1,3 +1,4 @@
+import { cn } from "@/lib/cn";
 import * as React from "react";
 import {
   Platform,
@@ -6,7 +7,6 @@ import {
   View,
   type PressableProps,
 } from "react-native";
-import { cn } from "../../libs/cn";
 import { useColorScheme } from "./use-color-scheme";
 
 interface SwitchProps extends Omit<PressableProps, "onPress"> {
@@ -17,7 +17,17 @@ interface SwitchProps extends Omit<PressableProps, "onPress"> {
 }
 
 const Switch = React.forwardRef<any, SwitchProps>(
-  ({ className, checked = false, onCheckedChange, disabled, children, ...props }, ref) => {
+  (
+    {
+      className,
+      checked = false,
+      onCheckedChange,
+      disabled,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const colorScheme = useColorScheme();
     const isDark = colorScheme === "dark";
     const handlePress = React.useCallback(() => {
@@ -38,7 +48,15 @@ const Switch = React.forwardRef<any, SwitchProps>(
             false: isDark ? "#374151" : "#e5e7eb",
             true: isDark ? "#6366f1" : "#4f46e5",
           }}
-          thumbColor={checked ? (isDark ? "#f3f4f6" : "#ffffff") : (isDark ? "#9ca3af" : "#d1d5db")}
+          thumbColor={
+            checked
+              ? isDark
+                ? "#f3f4f6"
+                : "#ffffff"
+              : isDark
+                ? "#9ca3af"
+                : "#d1d5db"
+          }
           style={style}
         />
       );
@@ -52,7 +70,7 @@ const Switch = React.forwardRef<any, SwitchProps>(
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           disabled && "cursor-not-allowed opacity-50",
           checked ? "bg-primary" : "bg-input",
-          className
+          className,
         )}
         onPress={handlePress}
         accessible={true}
@@ -63,15 +81,13 @@ const Switch = React.forwardRef<any, SwitchProps>(
         <View
           className={cn(
             "pointer-events-none block h-5 w-5 rounded-full bg-background shadow-sm transition-transform",
-            checked ? "translate-x-5" : "translate-x-0"
+            checked ? "translate-x-5" : "translate-x-0",
           )}
         />
       </Pressable>
     );
-  }
+  },
 );
 Switch.displayName = "Switch";
 
 export { Switch };
-
-

@@ -1,6 +1,6 @@
+import { cn } from "@/lib/cn";
 import * as React from "react";
 import { ActivityIndicator, type ActivityIndicatorProps } from "react-native";
-import { cn } from "../../libs/cn";
 
 export interface SpinnerProps extends ActivityIndicatorProps {
   className?: string;
@@ -18,7 +18,7 @@ const Spinner = React.forwardRef<ActivityIndicator, SpinnerProps>(
         {...props}
       />
     );
-  }
+  },
 );
 
 Spinner.displayName = "Spinner";

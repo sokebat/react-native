@@ -1,35 +1,17 @@
-import {
-  AlertCircle,
-  ArrowUpDown,
-  Bell,
-  Check,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  ChevronUp,
-  Home,
-  Menu,
-  RefreshCw,
-  Settings,
-  User,
-  WifiOff,
-  X,
+export {
+  AlertCircle as AlertCircleIcon,
+  ArrowUpDown as ArrowUpDownIcon,
+  Bell as BellIcon,
+  Check as CheckIcon,
+  ChevronDown as ChevronDownIcon,
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
+  ChevronUp as ChevronUpIcon,
+  Home as HomeIcon,
+  Menu as MenuIcon,
+  RefreshCw as RefreshCwIcon,
+  Settings as SettingsIcon,
+  User as UserIcon,
+  WifiOff as WifiOffIcon,
+  X as XIcon,
 } from "lucide-react-native";
-
-import { iconWithClassName } from "../components/ui/icon-with-classname";
-
-export const AlertCircleIcon = iconWithClassName(AlertCircle);
-export const ArrowUpDownIcon = iconWithClassName(ArrowUpDown);
-export const BellIcon = iconWithClassName(Bell);
-export const CheckIcon = iconWithClassName(Check);
-export const ChevronDownIcon = iconWithClassName(ChevronDown);
-export const ChevronLeftIcon = iconWithClassName(ChevronLeft);
-export const ChevronRightIcon = iconWithClassName(ChevronRight);
-export const ChevronUpIcon = iconWithClassName(ChevronUp);
-export const HomeIcon = iconWithClassName(Home);
-export const MenuIcon = iconWithClassName(Menu);
-export const RefreshCwIcon = iconWithClassName(RefreshCw);
-export const SettingsIcon = iconWithClassName(Settings);
-export const UserIcon = iconWithClassName(User);
-export const WifiOffIcon = iconWithClassName(WifiOff);
-export const XIcon = iconWithClassName(X);

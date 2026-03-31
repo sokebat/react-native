@@ -1,9 +1,7 @@
 {
-  "name": "expo-nativewind-template",
+  "name": " react-native-stater",
   "main": "expo-router/entry",
   "version": "0.2.0",
-
-
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",

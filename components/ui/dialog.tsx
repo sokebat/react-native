@@ -1,3 +1,4 @@
+import { cn } from "@/lib/cn";
 import { X } from "lucide-react-native";
 import * as React from "react";
 import {
@@ -7,10 +8,6 @@ import {
   Pressable,
   View,
 } from "react-native";
-import { cn } from "../../libs/cn";
-import { iconWithClassName } from "./icon-with-classname";
-
-const XIcon = iconWithClassName(X);
 
 const DialogContext = React.createContext<{
   open: boolean;
@@ -20,7 +17,11 @@ const DialogContext = React.createContext<{
   onOpenChange: () => {},
 });
 
-const Dialog = ({ children, open = false, onOpenChange = () => {} }: { 
+const Dialog = ({
+  children,
+  open = false,
+  onOpenChange = () => {},
+}: {
   children: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -39,25 +40,23 @@ const DialogTrigger = React.forwardRef<
   }
 >(({ onPress, asChild, children, ...props }, ref) => {
   const { onOpenChange } = React.useContext(DialogContext);
-  
-  const handlePress = React.useCallback((e?: any) => {
-    onPress?.(e);
-    onOpenChange(true);
-  }, [onPress, onOpenChange]);
-  
-  // If asChild, clone the child element and add onPress
+
+  const handlePress = React.useCallback(
+    (e?: any) => {
+      onPress?.(e);
+      onOpenChange(true);
+    },
+    [onPress, onOpenChange],
+  );
+
   if (asChild && React.isValidElement(children)) {
     return React.cloneElement(children as any, {
       onPress: handlePress,
     });
   }
-  
+
   return (
-    <Pressable
-      ref={ref}
-      onPress={handlePress}
-      {...props}
-    >
+    <Pressable ref={ref} onPress={handlePress} {...props}>
       {children}
     </Pressable>
   );
@@ -84,20 +83,20 @@ const DialogContent = React.forwardRef<
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         className="flex-1"
       >
-        <Pressable 
-          className="flex-1 justify-center items-center bg-foreground/50 p-4"
+        <Pressable
+          className="flex-1 items-center justify-center bg-foreground/50 p-4"
           onPress={() => onOpenChange(false)}
         >
           <Pressable
             ref={ref}
             className={cn(
-              "bg-background rounded-lg p-6 w-full max-w-sm",
+              "w-full max-w-sm rounded-lg bg-background p-6",
               "shadow-lg",
               Platform.select({
                 ios: "shadow-foreground/25",
                 android: "elevation-24",
               }),
-              className
+              className,
             )}
             onPress={(e) => e.stopPropagation()}
             {...props}
@@ -107,7 +106,7 @@ const DialogContent = React.forwardRef<
                 onPress={() => onOpenChange(false)}
                 className="absolute right-4 top-4 rounded-sm opacity-70 web:hover:opacity-100"
               >
-                <XIcon className="h-4 w-4 text-foreground" />
+                <X className="h-4 w-4 text-foreground" />
               </Pressable>
             )}
             {children}
@@ -137,7 +136,7 @@ const DialogFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <View
     ref={ref}
-    className={cn("flex flex-col gap-2 mt-6", className)}
+    className={cn("mt-6 flex flex-col gap-2", className)}
     {...props}
   />
 ));
@@ -147,11 +146,7 @@ const DialogTitle = React.forwardRef<
   React.ElementRef<typeof View>,
   React.ComponentPropsWithoutRef<typeof View>
 >(({ className, ...props }, ref) => (
-  <View
-    ref={ref}
-    className={cn("text-lg font-semibold leading-none tracking-tight", className)}
-    {...props}
-  />
+  <View ref={ref} className={cn(className)} {...props} />
 ));
 DialogTitle.displayName = "DialogTitle";
 
@@ -159,18 +154,16 @@ const DialogDescription = React.forwardRef<
   React.ElementRef<typeof View>,
   React.ComponentPropsWithoutRef<typeof View>
 >(({ className, ...props }, ref) => (
-  <View
-    ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
-    {...props}
-  />
+  <View ref={ref} className={cn(className)} {...props} />
 ));
 DialogDescription.displayName = "DialogDescription";
 
 export {
-  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 };
-
-
-
-

@@ -1,6 +1,6 @@
+import { cn } from "@/lib/cn";
 import * as React from "react";
 import { View, type ViewProps } from "react-native";
-import { cn } from "../../libs/cn";
 import { useColorScheme } from "./use-color-scheme";
 
 interface ThemeProviderProps extends ViewProps {
@@ -17,11 +17,7 @@ const ThemeProvider = React.forwardRef<
   return (
     <View
       ref={ref}
-      className={cn(
-        "flex-1 bg-background",
-        isDark && "dark",
-        className
-      )}
+      className={cn("flex-1 bg-background", isDark && "dark", className)}
       {...props}
     />
   );
@@ -30,5 +26,4 @@ const ThemeProvider = React.forwardRef<
 ThemeProvider.displayName = "ThemeProvider";
 
 export { ThemeProvider };
-
 

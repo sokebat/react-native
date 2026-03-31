@@ -1,4 +1,4 @@
-# Expo NativeWind Template
+# react-native-stater
 
 A polished Expo starter built with React Native, Expo Router, NativeWind, and a reusable UI component set.
 
